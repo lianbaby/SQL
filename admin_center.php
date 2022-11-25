@@ -22,7 +22,7 @@ include "./db/base.php";
     include "./layout/header.php";
 ?>
 
-<h1 style='text-align:center'>學生管理系統</h1>
+
 
  
 <?php

@@ -8,6 +8,7 @@
         
         ?>
     </div>
+    <h1 style='text-align:center'>學生管理系統</h1>
     <nav>
         <?php
         $local=str_replace(['/','.php'],'',$_SERVER['PHP_SELF']) ;

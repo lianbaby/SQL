@@ -104,6 +104,10 @@ nav ul.class-list li a{
     opacity: 0;
     height: 0;
 }
+form{
+    padding: 16px 832px;
+}
+
 @keyframes del-fade{
     0%{
         height: 0rem;

@@ -115,5 +115,9 @@
             </td>
         </tr>
     </table>
-    <input type="submit" value="確認新增">
+    <input type="submit" value="確認新增" style="  font-size: 20px;
+    margin-top: 25px;">
+    <input type="reset" value="重置" style="  font-size: 20px;
+    margin-top: 25px;">
+</form>
 </form>
