@@ -179,7 +179,8 @@ $rows=$pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 if(isset($_GET['status'])){
     switch($_GET['status']){
         case 'add_success':
-            echo "<span style='color:green'>新增學生成功</span>";
+            echo "<span style='color:green;font-size: 24px;
+            padding: 510px;'>新增學生成功</span>";
         break;
         case 'add_fail';
             echo "<span style='color:red'>新增學生有誤</span>";
