@@ -1,45 +1,37 @@
 <?php
-include "../db/base.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/class_student_dao.php";
 
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/entity/student.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/entity/class_student.php";
 
-$school_num=$_POST['school_num'];
-$name=$_POST['name'];
-$birthday=$_POST['birthday'];
-$uni_id=$_POST['uni_id'];
-$addr=$_POST['addr'];
-$parents=$_POST['parents'];
-$tel=$_POST['tel'];
-$dept=$_POST['dept'];
-$graduate_at=$_POST['graduate_at'];
-$status_code=$_POST['status_code'];
-$classes=$_POST['classes'];
-$year=2000;
-$seat_num=$pdo->query("SELECT max(`seat_num`) from `class_student` WHERE `class_code`='$classes'")->fetchColumn()+1;
+    $studentDao = new \db\StudentDao();
+    $classStudentDao = new \db\ClassStudentDao();
 
-$sql="INSERT INTO `students`
-(`id`, `school_num`, `name`,
-`birthday`, `uni_id`, `addr`,
-`parents`, `tel`, `dept`,
-`graduate_at`, `status_code`) VALUES
-(NULL, '$school_num','$name',
- '$birthday','$uni_id','$addr',
- '$parents', '$tel','$dept','$graduate_at'
- ,'$status_code')";
+    $student = new \entity\Student();
+    $classStudent = new \entity\ClassStudent();
+    
+    $student->school_num = $_POST['school_num'];
+    $student->name = $_POST['name'];
+    $student->birthday = $_POST['birthday'];
+    $student->uni_id = $_POST['uni_id'];
+    $student->addr = $_POST['addr'];
+    $student->parents = $_POST['parents'];
+    $student->tel = $_POST['tel'];
+    $student->dept = $_POST['dept'];
+    $student->graduate_at = $_POST['graduate_at'];
+    $student->status_code = $_POST['status_code'];
 
-$sql_class="INSERT INTO `class_student`(`school_num`,`class_code`,`seat_num`,`year`) values('$school_num','$class_code','$seat_num','$year')";
+    $classStudent->class_code = $_POST['class_code'];
+    $classStudent->year = 2000;
+    $classStudent->seat_num = $classStudentDao->getMaxSeatNumByClassCode($classStudent->class_code) + 1;
+    $classStudent->school_num = $student->school_num;
 
+    $res = $studentDao->create($student) && $classStudentDao->create($classStudent);
 
-// $pdo->query($sql);  新增指令
-$res=$pdo->exec($sql);
-$res1=$pdo->exec($sql_class);
-// echo "新增成功".$res;
+    // 新增成功後返回首頁
+    $status= $res ? 'add_success' : 'add_fail';
 
-// 新增成功後返回首頁
-if($res && $res1){
-    $status='add_success';
-}else{
-    $status='add_fail';
-}
-header("location:../admin_center.php?status=$status")
+    header("location:../admin_center.php?status=$status")
 
 ?>

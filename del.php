@@ -7,6 +7,6 @@
     <title>移除學生資料</title>
 </head>
 <body>
-<h1>移除學生資料</h1>
+    <h1>移除學生資料</h1>
 </body>
 </html>

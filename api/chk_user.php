@@ -1,26 +1,27 @@
 <?php
-include "../db/base.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/db/user_dao.php";
+
+$userDao = new \db\UserDao();
 
 session_start();
 
-$acc=$_POST['acc'];
-$pw=$_POST['pw'];
+$acc = $_POST['acc'];
+$pw = $_POST['pw'];
 
-$sql="select count(`id`) from `users` where `acc`='$acc' && `pw`='$pw' ";
-$chk=$pdo->query($sql)->fetchColumn();
+$chk= $userDao->count([ "acc" => $acc, "pw" => $pw ]);
 
-if($chk==1){
-    $sql="select `id`,`acc`,`name`,`last_login` from `users` where `acc`='$acc' && `pw`='$pw' ";
-    $user=$pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-
-    $_SESSION['login']=$user;
+if($chk === 1){
+    $_SESSION['login']= serialize($userDao->findOne($acc, $pw));
     header("location:../admin_center.php");
-}else{
-    if(isset($_SESSION['login_try'])){
-        $_SESSION['login_try']++;
-    }else{
-        $_SESSION['login_try']=1;
-    }
-    header("location:../login.php?error=login");
+
+    return;
 }
+
+if(isset($_SESSION['login_try'])){
+    $_SESSION['login_try']++;
+}else{
+    $_SESSION['login_try']=1;
+}
+
+header("location:../login.php?error=login");
 ?>

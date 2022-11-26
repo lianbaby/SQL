@@ -1,49 +1,33 @@
 <?php
-include "../db/base.php";
-$id=$_POST['id'];
-//建立變數接收表單傳送過來的資料
-$name=$_POST['name'];
-$birthday=$_POST['birthday'];
-$uni_id=$_POST['uni_id'];
-$addr=$_POST['addr'];
-$parents=$_POST['parents'];
-$tel=$_POST['tel'];
-$dept=$_POST['dept'];
-$graduate_at=$_POST['graduate_at'];
-$status_code=$_POST['status_code'];
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/class_student_dao.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/entity/student.php";
 
-$sql_students="UPDATE `students` 
-      SET `name`='$name',
-          `birthday`='$birthday' ,
-          `uni_id`='$uni_id' ,
-          `addr`='$addr' ,
-          `parents`='$parents' ,
-          `tel`='$tel' ,
-          `dept`='$dept', 
-          `graduate_at`='$graduate_at' ,
-          `status_code`='status_code' 
-      WHERE `id`='$id'";
+    $studentDao = new \db\StudentDao();
+    $classStudentDao = new \db\ClassStudentDao();
+    
+    $student = new \entity\Student();
 
-//學員所屬班級在另一張資料class_student
-$class_code=$_POST['class_code'];
+    $student->id = $_POST['id'];
+    $student->name=$_POST['name'];
+    $student->birthday=$_POST['birthday'];
+    $student->uni_id=$_POST['uni_id'];
+    $student->addr=$_POST['addr'];
+    $student->parents=$_POST['parents'];
+    $student->tel=$_POST['tel'];
+    $student->dept=$_POST['dept'];
+    $student->graduate_at=$_POST['graduate_at'];
+    $student->status_code=$_POST['status_code'];
 
-$school_num=$pdo->query("SELECT * from `students` WHERE `id`='$id'")
-                ->fetch(PDO::FETCH_ASSOC);
-$class=$pdo->query("SELECT * FROM `class_student` WHERE `school_num`='{$school_num['school_num']}'")
-           ->fetch(PDO::FETCH_ASSOC);
+    $studentDao->modify($student);
 
-$sql_class_student="UPDATE `class_student` 
-                    SET `class_code`='$class_code`'
-                    WHERE `id`='{$class['id']}'";
+    $student = $studentDao->findOne($student->id);
+    $class = $classStudentDao->findOneBySchoolNum($student->school_num);
+    
+    //學員所屬班級在另一張資料class_student
+    $class->class_code = $_POST['class_code'];
 
-echo $sql_students;
-echo "<br>";
-echo $sql_class_student;
-echo "<br>";
+    $classStudentDao->modify($class);
 
-$res1=$pdo->exec($sql_students);
-$res2=$pdo->exec($sql_class_student);
-echo "編輯成功:".$res;
-header("location:../admin_center.php");
-
+    header("location:../admin_center.php");
 ?>

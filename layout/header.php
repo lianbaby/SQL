@@ -1,17 +1,17 @@
 <header>
     <div class="nav">
         <?php
-        if (isset($_SESSION['login']))
-            echo "歡迎".$_SESSION['login']['name']."老師";
-        else
-        echo "= 教師 註冊/登入 =";
-        
+            require_once $_SERVER["DOCUMENT_ROOT"] . "/entity/User.php";
+            
+            echo isset($_SESSION['login']) 
+                ? ("歡迎" . unserialize($_SESSION['login'])->name . "老師")
+                : "= 教師 註冊/登入 =";
         ?>
     </div>
     <h1 style='text-align:center'>學生管理系統</h1>
     <nav>
         <?php
-        $local=str_replace(['/','.php'],'',$_SERVER['PHP_SELF']) ;
+            $local = str_replace(['/','.php'],'',$_SERVER['PHP_SELF']) ;
             switch($local){
                 case "index":
                     echo "<a href='index.php?do=reg'>教師註冊</a>";

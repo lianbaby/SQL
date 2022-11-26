@@ -18,7 +18,8 @@ header .nav{
     width: 900px;
     margin: auto;
 }
-.list-students td{
+.list-students td,
+.list-students th {
     border:1px solid #aaa;
     padding:5px 10px;
     text-align: center;
@@ -77,7 +78,7 @@ nav ul.class-list li a{
     box-shadow: 2px 2px 3px skyblue;
     text-decoration: none;
 }
- .class-list li a:hover{
+ .class-list li a:hover, .class-list .active a {
     background-color:green;
     color:white;
     font-weight: bolder;
@@ -105,7 +106,21 @@ nav ul.class-list li a{
     height: 0;
 }
 form{
-    padding: 16px 832px;
+    padding: 16px;
+    text-align: center;
+}
+
+form span {
+    display: inline-block;
+}
+
+form div {
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+.edit, .del {
+    padding: 0 2px;
 }
 
 @keyframes del-fade{

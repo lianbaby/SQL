@@ -24,17 +24,18 @@
     </style>
 
     <?php
-    $student = $pdo->query("SELECT * FROM `students` where `id`='{$_GET['id']}'")
-        ->fetch(PDO::FETCH_ASSOC);
+        require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
+        $studentDao = new \db\StudentDao();
+        $student = $studentDao->findOne($_GET['id']);
     ?>
     <div id=delWrap>
         <div class="dialog">
             <h1>刪除確認</h1>
             <div class="msg">
-                你確定要刪除<span><?= $student['name']; ?></span>嗎?
+                你確定要刪除<span><?= $student->name ?></span>嗎?
             </div>
             <div>
-                <button onclick="location.href='./api/del_student.php?id=<?= $_GET['id']; ?>'">確定刪除</button>
+                <button onclick="location.href='../api/del_student.php?id=<?= $_GET['id'] ?>'">確定刪除</button>
                 <button onclick="location.href='index.php'">取消</button>
             </div>
         </div>

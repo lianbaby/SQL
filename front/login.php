@@ -12,7 +12,15 @@ if(isset($_GET['error'])){
 </div>
 
 <form action="./api/chk_user.php" method="post">
-    <div>帳號:<input type="text" name="acc" id=""></div>
-    <div>密碼:<input type="password" name="pw" id=""></div>
-    <div><input type="submit" value="登入" id=""></div>
+    <div>
+        <label for="acc">帳號:</label>
+        <input type="text" name="acc" id="acc">
+    </div>
+    <div>
+        <label for="pw">密碼:</label>
+        <input type="password" name="pw" id="pw">
+    </div>
+    <div>
+        <input type="submit" value="登入">
+    </div>
 </form>

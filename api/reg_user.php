@@ -1,21 +1,17 @@
 <?php
-include "../db/base.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/user_dao.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/entity/user.php";
 
-$acc=trim(strip_tags($_POST['acc']));
-$pw=trim($_POST['pw']);
-$name=trim($_POST['name']);
-$email=trim($_POST['email']);
-$last_login=null;
+    $userDao = new \db\UserDao();
+    $user = new \entity\User();
 
-$sql="insert into `users` (`acc`,`pw`,`name`,`email`,`last_login`) values('$acc','$pw','$name','$email','$last_login')";
-echo "acc=>".$acc;
-echo "<br>";
-echo "pw=>".$pw;
-echo "<br>";
-echo "name=>".$name;
-echo "<br>";
-echo "email=>".$email;
-echo "<br>";
-$pdo->exec($sql);
-header("location:../login.php");
+    $user->acc = trim(strip_tags($_POST['acc']));
+    $user->pw = trim($_POST['pw']);
+    $user->name = trim($_POST['name']);
+    $user->email = trim($_POST['email']);
+    $user->last_login = null;
+    
+    $userDao->create($user);
 
+    header("location:../index.php?do=login");
+?>
