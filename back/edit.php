@@ -1,7 +1,6 @@
  
 <h1>編輯學生資料</h1>
 <?php 
-    include_once "../db/base.php";
     require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
     require_once $_SERVER["DOCUMENT_ROOT"] . "/db/dept_dao.php";
     require_once $_SERVER["DOCUMENT_ROOT"] . "/db/graduate_school_dao.php";
