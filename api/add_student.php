@@ -27,10 +27,26 @@
     $classStudent->seat_num = $classStudentDao->getMaxSeatNumByClassCode($classStudent->class_code) + 1;
     $classStudent->school_num = $student->school_num;
 
-    $res = $studentDao->create($student) && $classStudentDao->create($classStudent);
+    $is_success = false;
+    try {
+        $studentDao->beginTransaction();
+        $classStudentDao->beginTransaction();
+
+        $is_success = $studentDao->create($student) && $classStudentDao->create($classStudent);
+    } catch (Exception $e) {
+        throw $e;
+    } finally {
+        if ($is_success) {
+            $studentDao->commit();
+            $classStudentDao->commit();
+        } else {
+            $studentDao->rollback();
+            $classStudentDao->rollback();
+        }
+    }
 
     // 新增成功後返回首頁
-    $status= $res ? 'add_success' : 'add_fail';
+    $status= $is_success ? 'add_success' : 'add_fail';
 
     header("location:../admin_center.php?status=$status")
 

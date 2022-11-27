@@ -32,6 +32,9 @@
             return $this->insert($class_student);
         }
 
+        /**
+         * 修改
+         */
         public function modify(ClassStudent $class_student) {
             return $this->update($class_student);
         }

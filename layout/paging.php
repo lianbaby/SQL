@@ -1,10 +1,12 @@
 <?php
-
     class Paging {
 
         /**
          * 渲染分頁區塊
          * @param $current_page 當前頁碼
+         * @param $total_page 總頁碼數量
+         * @param $count 頁碼區塊顯示數量
+         * @param $code 班級編碼
          */
         public static function render(int $current_page = 1, int $total_page = 0, int $count = 5, string $code = null) {
             // 上一頁
@@ -33,6 +35,10 @@
 
         /**
          * 上下頁
+         * @param $is_show 是否顯示
+         * @param $page 前往的頁碼
+         * @param $code 班級編碼
+         * @param $is_lt 如果為 true 則顯示左箭頭，反之則顯示右箭頭。
          */
         private static function getLtOrGtElement(bool $is_show, int $page = 1, string $code = null, bool $is_lt = true) :string {
             if (!$is_show) {
@@ -43,7 +49,12 @@
         }
 
         /**
-         * 第一頁或最後一頁
+         * 第一頁或最後一頁頁碼連接
+         * @param $page 顯示的頁數，用於顯示第一頁或最後一頁的頁數
+         * @param $code 班級編碼
+         * @param $current_page 當前頁面的頁數
+         * @param $over_page 超過多少頁數則顯示第一頁或者最後一頁的頁碼連接
+         * @param $total 總頁數
          */
         private static function getFirstOrLastElement(int $page = 1, string $code = null, int $current_page = 1, int $over_page = 4, int $total = 0) {
             $center = (int) floor($over_page / 2);

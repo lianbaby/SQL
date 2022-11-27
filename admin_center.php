@@ -4,8 +4,6 @@ if(!isset($_SESSION['login'])){
     header("location:index.php");
     exit();
 }
-
-include "./db/base.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,21 +18,14 @@ include "./db/base.php";
 <body>
 <?php
     include "./layout/header.php";
+    $do=$_GET['do']??'main';
+    $file='./back/'.$do.".php";
+
+    if(file_exists($file)){
+        include $file;
+    }else{
+        include "./back/main.php";
+    }
 ?>
-
-
-
- 
-<?php
-$do=$_GET['do']??'main';
-$file='./back/'.$do.".php";
-
-if(file_exists($file)){
-    include $file;
-}else{
-    include "./back/main.php";
-}
-?>
-    
 </body>
 </html>

@@ -19,15 +19,28 @@
     $student->graduate_at=$_POST['graduate_at'];
     $student->status_code=$_POST['status_code'];
 
-    $studentDao->modify($student);
+    try {
+        $studentDao->beginTransaction();
+        $classStudentDao->beginTransaction();
 
-    $student = $studentDao->findOne($student->id);
-    $class = $classStudentDao->findOneBySchoolNum($student->school_num);
+        $studentDao->modify($student);
     
-    //學員所屬班級在另一張資料class_student
-    $class->class_code = $_POST['class_code'];
+        $student = $studentDao->findOne($student->id);
+        $class = $classStudentDao->findOneBySchoolNum($student->school_num);
+        
+        //學員所屬班級在另一張資料class_student
+        $class->class_code = $_POST['class_code'];
+    
+        $classStudentDao->modify($class);
 
-    $classStudentDao->modify($class);
+        $studentDao->commit();
+        $classStudentDao->commit();
+    } catch (Exception $e) {
+        $studentDao->rollback();
+        $classStudentDao->rollback();
+
+        throw $e;
+    }
 
     header("location:../admin_center.php");
 ?>

@@ -12,8 +12,8 @@
     include "./db/base.php";
     include "./layout/header.php";
 
-    $do= $_GET['do'] ?? 'main';
-    $file= "./front/" . $do . ".php";
+    $do = $_GET['do'] ?? 'main';
+    $file = "./front/" . $do . ".php";
 
     if(file_exists($file)){
         include $file;

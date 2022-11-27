@@ -26,6 +26,8 @@
             return "id";
         }
 
+        private $is_transaction = false;
+
         function __construct() {
 
             $this->conn = new \PDO(
@@ -216,6 +218,26 @@
             foreach ($values as $key => $value) {
                 $statement->bindValue($key, $value, self::getType($value));
             }
+        }
+
+        public function beginTransaction() :bool {
+            return ($this->is_transaction = $this->conn->beginTransaction());
+        }
+
+        public function commit() :bool {
+            if (!$this->is_transaction) {
+                return $this->is_transaction;
+            }
+
+            return $this->conn->commit();
+        }
+
+        public function rollback() :bool {
+            if (!$this->is_transaction) {
+                return $this->is_transaction;
+            }
+            
+            return $this->conn->rollBack();
         }
     }
 ?>
