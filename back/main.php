@@ -51,7 +51,7 @@
                 echo "<span style='color:red'>新增學生有誤</span>";
             break;
             case 'edit_error':
-                echo "<span style='color:red'>無法編輯，請洽管理員，或正確操作</span>";
+                echo "<span style='color:red'>無法編輯，請洽管理員或正確操作</span>";
             break;
         }
     }

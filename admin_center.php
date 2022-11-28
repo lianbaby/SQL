@@ -13,6 +13,7 @@ if(!isset($_SESSION['login'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>後台管理中心</title>
     <link rel="stylesheet" href="style.css">
+    <?php include "./layout/link_css.php";?>
 
 </head>
 <body>
@@ -27,5 +28,6 @@ if(!isset($_SESSION['login'])){
         include "./back/main.php";
     }
 ?>
+<?php include "./layout/scripts.php";?>
 </body>
 </html>

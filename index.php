@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>學生管理系統</title>
     <link rel="stylesheet" href="style.css">
+    <?php include "./layout/link_css.php";?>
 </head>
 <body>
 <?php
@@ -21,5 +22,6 @@
         include "./front/main.php";
     }
 ?>
+<?php include "./layout/scripts.php";?>
 </body>
 </html>

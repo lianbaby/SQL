@@ -16,7 +16,7 @@
         // 資料庫使用者名稱
         const USERNAME = "root";
         // 資料庫使用者密碼
-        const PASSWORD = "root";
+        const PASSWORD = "";
 
         protected $conn;
 
