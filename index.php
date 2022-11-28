@@ -10,7 +10,6 @@
 </head>
 <body>
 <?php
-    include "./db/base.php";
     include "./layout/header.php";
 
     $do = $_GET['do'] ?? 'main';
@@ -21,7 +20,8 @@
     }else{
         include "./front/main.php";
     }
+
+    include "./layout/scripts.php";
 ?>
-<?php include "./layout/scripts.php";?>
 </body>
 </html>

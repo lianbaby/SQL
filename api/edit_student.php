@@ -19,6 +19,9 @@
     $student->graduate_at=$_POST['graduate_at'];
     $student->status_code=$_POST['status_code'];
 
+    $class_code = $_POST['class_code'];
+    $msg = "編輯學生成功。";
+    $msg_type = "success";
     try {
         $studentDao->beginTransaction();
         $classStudentDao->beginTransaction();
@@ -29,18 +32,19 @@
         $class = $classStudentDao->findOneBySchoolNum($student->school_num);
         
         //學員所屬班級在另一張資料class_student
-        $class->class_code = $_POST['class_code'];
+        $class->class_code = $class_code;
     
         $classStudentDao->modify($class);
-
         $studentDao->commit();
         $classStudentDao->commit();
     } catch (Exception $e) {
         $studentDao->rollback();
         $classStudentDao->rollback();
-
-        throw $e;
+        $msg = "無法編輯，請洽管理員或正確操作";
+        $msg_type = "error";
     }
 
-    header("location:../admin_center.php");
+    $msg = urlencode($msg);
+
+    header("location:../admin_center.php?code=$class_code&msg=$msg&msg_type=$msg_type", false);
 ?>

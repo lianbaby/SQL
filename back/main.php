@@ -1,17 +1,11 @@
 <?php 
     include_once "./layout/class_nav.php";
     include_once "./layout/paging.php";
+    include_once $_SERVER["DOCUMENT_ROOT"] . "/layout/alert.php";
 
     require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
 
     $studentDao = new \db\StudentDao();
-
-    if(isset($_GET['del'])){
-        echo "<div class='del-msg'>";
-        echo $_GET['del'];
-        echo "</div>";
-    }
-
 
     /**
      * 分頁參數處理中心
@@ -41,21 +35,6 @@
     $pages = ceil($total / $div);
     // 顯示分頁區塊
     Paging::render($now, $pages, 5, $code);
-    if(isset($_GET['status'])){
-        switch($_GET['status']){
-            case 'add_success':
-                echo "<span style='color:green;font-size: 24px;
-                padding: 510px;'>新增學生成功</span>";
-            break;
-            case 'add_fail';
-                echo "<span style='color:red'>新增學生有誤</span>";
-            break;
-            case 'edit_error':
-                echo "<span style='color:red'>無法編輯，請洽管理員或正確操作</span>";
-            break;
-        }
-    }
-
 ?>
 <!--建立顯示學生列表的表格html語法-->
 <table class='list-students'>

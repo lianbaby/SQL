@@ -7,6 +7,8 @@
     $classStudentDao = new \db\ClassStudentDao();
 
     $student = $studentDao->findOne($id);
+    $msg = "已成功刪除學生{$student->name}的所有資料!!";
+    $msg_type = "success";
     try {
         $classStudentDao->beginTransaction();
         $studentDao->beginTransaction();
@@ -19,8 +21,11 @@
     } catch (Exception $e) {
         $classStudentDao->rollback();
         $studentDao->rollback();
-        throw $e;
+        $msg = "刪除學生失敗";
+        $msg_type = "error";
     }
 
-    header("location:../admin_center.php?del=已成功刪除學生{$student->name}的所有資料!!");
+    $msg = urlencode($msg);
+
+    header("location:../admin_center.php?msg=$msg&msg_type=$msg_type");
 ?>

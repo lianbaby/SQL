@@ -28,26 +28,27 @@
     $classStudent->school_num = $student->school_num;
 
     $is_success = false;
+    $msg = "新增學生成功。";
+    $msg_type = "success";
     try {
         $studentDao->beginTransaction();
         $classStudentDao->beginTransaction();
 
         $is_success = $studentDao->create($student) && $classStudentDao->create($classStudent);
     } catch (Exception $e) {
-        throw $e;
-    } finally {
-        if ($is_success) {
-            $studentDao->commit();
-            $classStudentDao->commit();
-        } else {
-            $studentDao->rollback();
-            $classStudentDao->rollback();
-        }
     }
 
-    // 新增成功後返回首頁
-    $status= $is_success ? 'add_success' : 'add_fail';
+    if ($is_success) {
+        $studentDao->commit();
+        $classStudentDao->commit();
+    } else {
+        $msg = "新增學生有誤";
+        $msg_type = "error";
+        $studentDao->rollback();
+        $classStudentDao->rollback();
+    }
 
-    header("location:../admin_center.php?status=$status")
+    $msg = urlencode($msg);
 
+    header("location:../admin_center.php?msg=$msg&msg_type=$msg_type&code={$classStudent->class_code}")
 ?>
