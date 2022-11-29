@@ -3,7 +3,7 @@
     include_once "./layout/paging.php";
     include_once $_SERVER["DOCUMENT_ROOT"] . "/layout/alert.php";
 
-    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/autoload.php";
 
     $studentDao = new \db\StudentDao();
 

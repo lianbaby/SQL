@@ -1,6 +1,5 @@
 <?php
-    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/user_dao.php";
-    require_once $_SERVER["DOCUMENT_ROOT"] . "/entity/user.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/autoload.php";
 
     $userDao = new \db\UserDao();
     $user = new \entity\User();

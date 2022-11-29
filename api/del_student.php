@@ -1,6 +1,6 @@
 <?php
-    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
-    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/class_student_dao.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/autoload.php";
+
     $id = $_GET['id'];
 
     $studentDao = new \db\StudentDao();

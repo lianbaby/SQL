@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/db/user_dao.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/autoload.php";
 
 $userDao = new \db\UserDao();
 

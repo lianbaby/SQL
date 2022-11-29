@@ -2,7 +2,7 @@
     namespace db;
 
     abstract class BaseDao {
-        const TYPES = array(
+        private const TYPES = array(
             "boolean" => \PDO::PARAM_BOOL,
             "integer" => \PDO::PARAM_INT,
             "double" => \PDO::PARAM_INT,
@@ -10,13 +10,13 @@
         );
 
         // 資料庫連接地址
-        const HOST = "localhost";
+        private const HOST = "localhost";
         // 資料庫名稱
-        const DB = "schools";
+        private const DB = "schools";
         // 資料庫使用者名稱
-        const USERNAME = "root";
+        private const USERNAME = "root";
         // 資料庫使用者密碼
-        const PASSWORD = "";
+        private const PASSWORD = "";
 
         protected $conn;
 
@@ -29,11 +29,13 @@
         private $is_transaction = false;
 
         function __construct() {
+            $host = empty(apache_getenv("HOST")) ? self::HOST : apache_getenv("HOST");
+            $db = empty(apache_getenv("DB")) ? self::DB : apache_getenv("DB");
 
             $this->conn = new \PDO(
-                "mysql:host=" . self::HOST . ";charset=utf8;dbname=" . self::DB, 
-                self::USERNAME, 
-                self::PASSWORD
+                "mysql:host=$host;charset=utf8;dbname=$db", 
+                empty(apache_getenv("USERNAME")) ? self::USERNAME : apache_getenv("USERNAME"),
+                empty(apache_getenv("PASSWORD")) ? self::PASSWORD : apache_getenv("PASSWORD"),
             );
         }
 

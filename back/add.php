@@ -1,6 +1,6 @@
 
 <?php
-    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/autoload.php";
     
     require_once $_SERVER["DOCUMENT_ROOT"] . "/layout/dept_select.php";
     require_once $_SERVER["DOCUMENT_ROOT"] . "/layout/graduate_school_select.php";

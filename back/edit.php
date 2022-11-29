@@ -2,8 +2,7 @@
     include_once "../layout/link_css.php";
     include_once "../layout/scripts.php";
 
-    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
-    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/class_student_dao.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/autoload.php";
 
     require_once $_SERVER["DOCUMENT_ROOT"] . "/layout/dept_select.php";
     require_once $_SERVER["DOCUMENT_ROOT"] . "/layout/graduate_school_select.php";

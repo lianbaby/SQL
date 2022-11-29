@@ -2,7 +2,7 @@
     include_once "./layout/class_nav.php";
     include_once "./layout/paging.php";
 
-    require_once $_SERVER["DOCUMENT_ROOT"] . "/db/student_dao.php";
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/autoload.php";
 
     $studentDao = new \db\StudentDao();
     
